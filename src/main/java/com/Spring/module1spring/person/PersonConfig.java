@@ -14,7 +14,7 @@ import static java.time.Month.*;
 public class PersonConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(PersonRepository repository) {
+    CommandLineRunner commandLineRunnerPerson(PersonRepository repository) {
         return args -> {
             Person poki = new Person(
                     "Poki",

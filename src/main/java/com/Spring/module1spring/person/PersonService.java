@@ -2,6 +2,7 @@ package com.Spring.module1spring.person;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 
 @Service
+@Component
 public class PersonService {
 
     private final PersonRepository personRepository;
@@ -66,5 +68,9 @@ public class PersonService {
                     "Cannot find the person with the Id number: " + personId + ".");
         }
         return personRepository.findById(personId);
+    }
+
+    public <T> Optional<T> ApplyP(Long personId) {
+        return null;
     }
 }

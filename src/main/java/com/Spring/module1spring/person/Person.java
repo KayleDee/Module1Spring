@@ -1,24 +1,27 @@
 package com.Spring.module1spring.person;
 
+import com.Spring.module1spring.console.Console;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
 public class Person {
     @Id
-    @SequenceGenerator(
-            name = "person_sequence",
-            sequenceName = "person_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "person_sequence"
-    )
+    @SequenceGenerator(name = "person_sequence", sequenceName = "person_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_sequence")
     private  Long id;
+
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "person")
+    private Set<Console> console = new HashSet<>();
     private String name;
     @Transient
     private Integer age;
@@ -26,20 +29,19 @@ public class Person {
     private String email;
     private String phoneNum;
 
-    public Person() {
-    }
-
     public Person(
                   String name,
                   LocalDate dob,
                   String email,
                   String phoneNum) {
 
-
         this.name = name;
         this.dob = dob;
         this.email = email;
         this.phoneNum = phoneNum;
+    }
+
+    public Person() {
     }
 
     public Long getId() {
@@ -101,4 +103,8 @@ public class Person {
                 ", phoneNum='" + phoneNum + '\'' +
                 '}';
     }
+    public Set<Console> getConsole() {
+        return console;
+    }
+
 }
