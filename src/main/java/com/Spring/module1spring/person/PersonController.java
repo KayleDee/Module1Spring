@@ -1,6 +1,5 @@
 package com.Spring.module1spring.person;
 
-import com.Spring.module1spring.console.Console;
 import com.Spring.module1spring.console.ConsoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -53,16 +52,4 @@ public class PersonController {
        return personService.onePerson(personId);
     }
 
-
-    @PutMapping("/{consoleId}/person/{personId}")
-    Console addNewConsoleToAPerson(
-            @PathVariable Long consoleId,
-            @PathVariable Long personId
-
-    ) {
-        Console console = consoleRepository.findById(consoleId).get();
-        Person person = personRepository.findById(personId).get();
-        console.applyP(person);
-        return consoleRepository.save(console);
-    }
 }

@@ -2,7 +2,6 @@ package com.Spring.module1spring.console;
 
 import com.Spring.module1spring.game.Game;
 import com.Spring.module1spring.person.Person;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -32,7 +31,6 @@ public class Console {
     private Set<Game> gamesCompatible =new HashSet<>();
 
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
@@ -96,6 +94,10 @@ public class Console {
         return person;
     }
     public void applyP(Person person) {
+        this.person = person;
+    }
+
+    public void applyC(Person person) {
         this.person = person;
     }
 

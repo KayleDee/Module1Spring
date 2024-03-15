@@ -29,7 +29,7 @@ public class ConsoleService {
 
     }
     public void deleteConsole(Long consoleId) {
-        boolean exists = consoleRepository.existsByConsoleId(consoleId);
+        boolean exists = consoleRepository.existsById(consoleId);
         if (!exists) {
             throw new IllegalStateException(
                     "the console with the id " + consoleId + " cannot be found.");

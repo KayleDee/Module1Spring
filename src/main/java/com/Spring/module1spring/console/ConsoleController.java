@@ -1,6 +1,7 @@
 package com.Spring.module1spring.console;
 
 import com.Spring.module1spring.game.Game;
+import com.Spring.module1spring.game.GameRepository;
 import com.Spring.module1spring.game.GameService;
 import com.Spring.module1spring.person.Person;
 import com.Spring.module1spring.person.PersonRepository;
@@ -15,13 +16,15 @@ import java.util.Optional;
 @RequestMapping(path = "api/v1/console")
 public class ConsoleController {
     @Autowired
-    private ConsoleService consoleService;
+    ConsoleService consoleService;
     @Autowired
-    private GameService gameService;
+    GameService gameService;
     @Autowired
-    private PersonService personService;
+    PersonService personService;
     @Autowired
-    private PersonRepository personRepository;
+    PersonRepository personRepository;
+    @Autowired
+    GameRepository gameRepository;
     @Autowired
     public ConsoleController(ConsoleService consoleService,
                              GameService gameService) {
@@ -64,16 +67,27 @@ public class ConsoleController {
         return consoleService.oneConsole(consoleId);
     }
 
-    @PutMapping("/{gameId}/console/{consoleId}")
+    @PutMapping("/{consoleId}/game/{gameId}")
     Console addNewConsoleToGame(
             @PathVariable Long gameId,
             @PathVariable Long consoleId
     ) {
-        Game game = gameService.oneGame(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
-        Console console = consoleRepository.findById(consoleId).orElseThrow(() -> new RuntimeException("Console not found"));
+        Game game = gameRepository.findById(gameId).get();
+        Console console = consoleRepository.findById(consoleId).get();
         console.applyGame(game);
         return consoleRepository.save(console);
     }
 
+    @PutMapping("/{consoleId}/person/{personId}")
+    Console addNewConsoleToAPerson(
+            @PathVariable Long consoleId,
+            @PathVariable Long personId
+
+    ) {
+        Console console = consoleRepository.findById(consoleId).get();
+        Person person = personRepository.findById(personId).get();
+        console.applyC(person);
+        return consoleRepository.save(console);
+    }
 
 }
